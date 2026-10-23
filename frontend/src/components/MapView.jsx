@@ -42,18 +42,12 @@ export default function MapView({
       preferCanvas: true,
     });
 
-    // Stadia Maps (alidade_smooth) - OSM-based, policy-compliant, free API key
-    const stadiaApiKey = import.meta.env.VITE_STADIA_API_KEY;
-    L.tileLayer(
-      `https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${stadiaApiKey}`,
-      {
-        maxZoom: 20,
-        attribution:
-          '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> ' +
-          '&copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> ' +
-          '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-      }
-    ).addTo(map);
+    // Use OpenStreetMap tiles (free, no API key required)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
 
     // Add layer groups to map
     heatmapLayerRef.current.addTo(map);
