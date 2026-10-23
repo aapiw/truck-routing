@@ -1,0 +1,31 @@
+name: truck-routing
+services:
+  - name: web
+    docker:
+      dockerfile: Dockerfile
+    ports:
+      - port: 8000
+        protocol: http
+    env:
+      - name: DJANGO_DEBUG
+        value: "False"
+      - name: DJANGO_SECRET_KEY
+        value: "koyeb-secret-key-change-in-production"
+      - name: PYTHON_VERSION
+        value: "3.10"
+    instance:
+      type: nano
+      cpu: 0.1
+      memory: 0.5
+    regions:
+      - was
+    horizontal_scaling:
+      min: 0
+      max: 1
+    healthcheck:
+      http_path: /
+      port: 8000
+      initial_delay: 30
+      period: 10
+      timeout: 5
+      threshold: 3
